@@ -3,9 +3,9 @@
 #include "lcddraw.h"
 
 void
-flappyBird(char x, char y){
+flappyBird(u_char x, u_char y, u_char w, u_char h, u_int bg){
 
-  fillRectangle(14, y-10, 48, 150, COLOR_BLUE);
+  fillRectangle(14, y+15, w+45, h+32, bg);
   fillRectangle(20, y+20, 32, 32, COLOR_BLACK);
   fillRectangle(22, y+22, 28, 28, COLOR_YELLOW);
 
@@ -22,4 +22,13 @@ flappyBird(char x, char y){
 
   fillRectangle(24, y+50, 24, 3, COLOR_YELLOW);
   fillRectangle(24, y+52, 24, 3, COLOR_BLACK);
+}
+
+void
+tube(u_char x, u_char y, u_char w, u_char h, u_int bg){
+  fillRectangle(x+55, 0, w+22, h+56, bg);
+  fillRectangle(x+60, 0, 20, 55, COLOR_GREEN);
+
+  fillRectangle(x+55, 108, w+22, h+56, bg);
+  fillRectangle(x+60, 110, 20, 55, COLOR_GREEN);
 }

@@ -20,8 +20,8 @@ init_shapes(void)
   rect1.rect_col = screenWidth / 2;
   rect1.old_rect_row = 40;
   rect1.old_rect_col = screenWidth / 2;
-  rect1.height = 10;
-  rect1.width  = 60;
+  rect1.height = 35;
+  rect1.width  = 50;
 }
 
 void
@@ -54,26 +54,26 @@ draw_rectangle(void)
 void
 moving_rectangle(rectangle *to_draw)
 {
-  static int x_vel = 0;
-  static int y_vel = 10;
+  static int x_vel = 5;
+  static int y_vel = 5;
 
-  int left_col = to_draw->rect_col - (to_draw->width+30);
-  int top_row  = to_draw->rect_row+30 - (to_draw->width+40);
+  int left_col = to_draw->rect_col+5 - (to_draw->width+5);
+  int top_row  = to_draw->rect_row+30 - (to_draw->width+5);
 
   unsigned int blue = 16, green = 0, red = 31;
   unsigned int color = (blue << 11) | (green << 5) | red;
 
   // draw rectangle at current position
   //fillRectangle(0, top_row, to_draw->width+25, to_draw->height+10, background_color);
-  flappyBird(0, top_row);
-
+  flappyBird(0, top_row, to_draw->width, to_draw->height, background_color);
+  tube(left_col, 0, to_draw->width, to_draw->height-35, background_color);
   // save current position
   to_draw->old_rect_row = to_draw->rect_row;
   to_draw->old_rect_col = to_draw->rect_col;
 
   // update position
   to_draw->rect_row += y_vel;
-  to_draw->rect_col += x_vel;
+  to_draw->rect_col -= x_vel;
 
   // check boundaries, see if rectangle has hit the edges
   if ( ( to_draw->rect_col - (to_draw->width / 2) ) <= 0 ||            // left boundary
