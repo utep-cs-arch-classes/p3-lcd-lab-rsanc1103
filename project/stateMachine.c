@@ -23,19 +23,27 @@ void
 moveBird(void){
   draw_moving_shapes();
   if(switch1_down){ 
-    moving_bird(&rect1, 0, 1, 0, 0);
+    moving_bird(&rect1, 0, 1);
     buzzer_set_period(12000);
+    if(background_color == COLOR_BLACK){
+      update_text(0);
+    }
+    else{
+      update_text(1);
+    }
   }
   if(switch2_down){
-    moving_bird(&rect1, 1, 0, 0, 0);
+    moving_bird(&rect1, 1, 0);
     buzzer_set_period(5000);
   }
 }
 void
 gameMode(void){
   if(switch3_down){
-    background_color = COLOR_BLUE;
-    clearScreen(background_color);
+    if(background_color == COLOR_BLACK){
+      background_color = COLOR_BLUE;
+      clearScreen(background_color);
+    }
     update_text(1);
     buzzer_set_period(0);
   }

@@ -21,6 +21,7 @@ typedef struct cir_st {
 } circle;
 
 extern u_int background_color;
+extern int gameOver;
 
 /* initializes shape positions */
 void init_shapes(void);
@@ -28,24 +29,12 @@ void init_shapes(void);
 /* handles erasing and updating all the shapes */
 void draw_moving_shapes(void);
 
-/* handles a single rectangle, updates its 
-   position and draws it at its new location */
-void moving_rectangle(rectangle* to_draw);
-
 /* handles flappy bird, updates its 
    position and draws it at its new location */
-void moving_bird(rectangle* to_draw, int moveUp, int moveDown, int moveLfet, int moveRight);
-
-/* handles green tubes, updates its 
-   position and draws it at its new location */
-void moving_tubes(rectangle* to_draw);
-
+void moving_bird(rectangle* to_draw, int moveUp, int moveDown);
 
 /* handles a single circle, updates its 
    position and draws it at its new location */
 void moving_circle(void);
-
-/* draws a rectangle */
-void draw_rectangle(void);
 
 #endif // _DRAW_SHAPES_H_

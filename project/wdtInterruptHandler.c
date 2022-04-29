@@ -1,6 +1,7 @@
 #include <msp430.h>
 #include "libTimer.h"
 #include "draw_shapes.h"
+#include "stateMachine.h"
 
 // function that handles interrupts
 // from the periodic timer
@@ -14,8 +15,11 @@ __interrupt_vec(WDT_VECTOR) WDT()
   second_count++;
 
   if (second_count >= second_limit) {
-    moveBird();
-    gameMode();
-    second_count = 0;
-  }
+    if(gameOver){
+      drawString5x7(5, 5, "You Lost", COLOR_WHITE, background_color);
+    }
+     moveBird();
+      gameMode();
+      second_count = 0;
+   }
 } 
