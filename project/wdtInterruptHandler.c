@@ -8,14 +8,14 @@
 void
 __interrupt_vec(WDT_VECTOR) WDT()
 {
-  const  u_int second_limit = 250;
+  const  u_int second_limit = 25;
   static u_int second_count = 0;
 
   second_count++;
 
   if (second_count >= second_limit) {
-    draw_moving_shapes();
+    moveBird();
+    gameMode();
     second_count = 0;
   }
 } 
-

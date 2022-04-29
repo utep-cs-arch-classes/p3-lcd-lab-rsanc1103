@@ -32,17 +32,20 @@ void draw_moving_shapes(void);
    position and draws it at its new location */
 void moving_rectangle(rectangle* to_draw);
 
+/* handles flappy bird, updates its 
+   position and draws it at its new location */
+void moving_bird(rectangle* to_draw, int moveUp, int moveDown, int moveLfet, int moveRight);
+
+/* handles green tubes, updates its 
+   position and draws it at its new location */
+void moving_tubes(rectangle* to_draw);
+
+
 /* handles a single circle, updates its 
    position and draws it at its new location */
 void moving_circle(void);
 
 /* draws a rectangle */
 void draw_rectangle(void);
-
-/* draws a triangle */
-void draw_triangle(void);
-
-/* draws a circle with the given parameters */
-void draw_circle(int x, int y, int r, u_int color);
 
 #endif // _DRAW_SHAPES_H_
