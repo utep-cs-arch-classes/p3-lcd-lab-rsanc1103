@@ -7,12 +7,11 @@
 #include "buzzer.h"
 
 rectangle rect1;
-rectangle rect2;
 
 void
 update_text(int pressed){
   if(pressed){
-    drawString5x7(20, 150, "Not FLappy Bird ", COLOR_WHITE, background_color);
+    drawString5x7(20, 150, "Not Flappy Bird ", COLOR_WHITE, background_color);
   }
   else{
     drawString5x7(20, 150, "   dark mode   ", COLOR_WHITE, background_color);
@@ -22,6 +21,7 @@ update_text(int pressed){
 void
 moveBird(void){
   draw_moving_shapes();
+  
   if(switch1_down){ 
     moving_bird(&rect1, 0, 1);
     buzzer_set_period(12000);

@@ -5,11 +5,8 @@
 #include "drawing.h"
 
 circle cir1;
+circle cir2;
 u_int background_color = COLOR_BLUE;
-int birdPosX;
-int birdPosY;
-int ballPosX;
-int ballPosY;
 int gameOver = 0;
 
 void
@@ -21,8 +18,15 @@ init_shapes(void)
   cir1.cir_x = screenWidth / 2;
   cir1.old_cir_y = 60;
   cir1.old_cir_x = screenWidth / 2;
-  cir1.r = 14;
+  cir1.r = 6;
+
+  cir2.cir_y = 80;
+  cir2.cir_x = 100;
+  cir2.old_cir_y = 80;
+  cir2.old_cir_x = 100;
+  cir2.r = 6;
 }
+
 
 void
 drawHorizontalLine(u_int x_start, u_int x_end, u_int y, u_int colorBGR)
@@ -31,6 +35,7 @@ drawHorizontalLine(u_int x_start, u_int x_end, u_int y, u_int colorBGR)
   // set the draw area from the start of the line to the end
   // height is 1 since its a line
   lcd_setArea(x_start, y, x_end, y);
+  
   for (u_int i = 0; i < length; i++) {
     lcd_writeColor(colorBGR);
   }
@@ -81,8 +86,8 @@ draw_circle(int x, int y, int r, u_int color)
 void
 moving_circle(void)
 {
-  static int x_vel = 5;
-  static int y_vel = 5;
+  static int x_vel = 1;
+  static int y_vel = 1;
   
   u_int color = COLOR_GREEN;
 
@@ -94,9 +99,6 @@ moving_circle(void)
   // save current position
   cir1.old_cir_x = cir1.cir_x;
   cir1.old_cir_y = cir1.cir_y;
-
-  ballPosX = cir1.cir_x;
-  ballPosY = cir1.cir_y;
 
   // update position
   cir1.cir_x += x_vel;
@@ -114,19 +116,50 @@ moving_circle(void)
   }
 }
 
+void
+moving_circle2(void)
+{
+  static int x_vel = 3;
+  static int y_vel = 1;
+  
+  u_int color = COLOR_RED;
+
+
+  // draw at the new position
+  draw_circle(cir2.cir_x, cir2.cir_y, cir2.r, color);
+  
+  
+  // save current position
+  cir2.old_cir_x = cir2.cir_x;
+  cir2.old_cir_y = cir2.cir_y;
+
+  // update position
+  cir2.cir_x += x_vel;
+  cir2.cir_y += y_vel;
+  
+  // check boundaries, see if rectangle has hit the edges
+  if ( (cir2.cir_x + cir2.r) >= screenWidth || (cir2.cir_x - cir2.r) <= 0) {
+    // top or bottom hit, reverse x velocity
+    x_vel = x_vel * -1;
+  }
+  if ( ( cir2.cir_y - cir2.r ) <= 0 ||            // left boundary
+       ( cir2.cir_y + cir2.r ) >= screenHeight ) { // right boundary
+    // right or left hit, reverse y velocity
+    y_vel = y_vel * -1;
+  }
+}
+
 
 void
 draw_moving_shapes(void)
 {
   // blank out the old circle
   draw_circle(cir1.old_cir_x, cir1.old_cir_y, cir1.r, background_color);
+  draw_circle(cir2.old_cir_x, cir2.old_cir_y, cir2.r, background_color);
 
   // draw and update the circle
   moving_circle();
-
-  if(ballPosX == birdPosX && ballPosY == birdPosY){
-    gameOver = 1;
-  }
+  moving_circle2();
 }
 
 void
@@ -143,10 +176,6 @@ moving_bird(rectangle *to_draw, int moveUp, int moveDown)
   to_draw->old_rect_row = to_draw->rect_row;
   to_draw->old_rect_col = to_draw->rect_col;
 
-  birdPosX = to_draw->rect_row;
-  birdPosY = to_draw->rect_col;
-  
-
   // update position
   to_draw->rect_row += y_vel;
 
@@ -155,5 +184,10 @@ moving_bird(rectangle *to_draw, int moveUp, int moveDown)
   } 
   if(moveUp){
     y_vel = y_vel * -1;
+  }
+   // check boundaries, see if rectangle has hit the edges
+  if ( (to_draw->rect_row+30 - to_draw->height / 2) <= 0 ||
+       (to_draw->rect_row+30 + to_draw->height / 2) >= screenHeight) {
+    gameOver = 1;
   }
 }
