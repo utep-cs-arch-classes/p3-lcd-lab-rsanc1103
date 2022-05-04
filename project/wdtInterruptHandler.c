@@ -5,6 +5,7 @@
 #include "draw_shapes.h"
 #include "stateMachine.h"
 #include "buzzer.h"
+#include "play.h"
 
 void
 gameOverText(void){

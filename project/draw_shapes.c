@@ -8,6 +8,10 @@ circle cir1;
 circle cir2;
 u_int background_color = COLOR_BLUE;
 int gameOver = 0;
+int cirPosX;
+int cirPosY;
+int cir2PosX;
+int cir2PosY;
 
 void
 init_shapes(void)
@@ -86,8 +90,8 @@ draw_circle(int x, int y, int r, u_int color)
 void
 moving_circle(void)
 {
-  static int x_vel = 1;
-  static int y_vel = 1;
+  static int x_vel = 2;
+  static int y_vel = 3;
   
   u_int color = COLOR_GREEN;
 
@@ -99,6 +103,9 @@ moving_circle(void)
   // save current position
   cir1.old_cir_x = cir1.cir_x;
   cir1.old_cir_y = cir1.cir_y;
+
+  cirPosX = cir1.cir_x;
+  cirPosY = cir1.cir_y;
 
   // update position
   cir1.cir_x += x_vel;
@@ -133,6 +140,9 @@ moving_circle2(void)
   cir2.old_cir_x = cir2.cir_x;
   cir2.old_cir_y = cir2.cir_y;
 
+  cir2PosX = cir2.cir_x;
+  cir2PosY = cir2.cir_y;
+  
   // update position
   cir2.cir_x += x_vel;
   cir2.cir_y += y_vel;
@@ -185,9 +195,16 @@ moving_bird(rectangle *to_draw, int moveUp, int moveDown)
   if(moveUp){
     y_vel = y_vel * -1;
   }
-   // check boundaries, see if rectangle has hit the edges
-  if ( (to_draw->rect_row+30 - to_draw->height / 2) <= 0 ||
-       (to_draw->rect_row+30 + to_draw->height / 2) >= screenHeight) {
-    gameOver = 1;
-  }
+  // check boundaries, see if rectangle has hit the edges
+   if ( (to_draw->rect_row+30 - to_draw->height / 2) <= 0 ||
+	(to_draw->rect_row+30 + to_draw->height / 2) >= screenHeight) {
+     gameOver = 1;
+   }
+  // if (  ((to_draw->rect_row+30) == cirPosX &&
+  //	(to_draw->rect_row) == cirPosY) ||
+  //	((to_draw->rect_row+30) == cir2PosX &&
+  //	 (to_draw->rect_row) == cir2PosY)
+  //	) {
+  //   gameOver = 1;
+  // }
 }

@@ -3,6 +3,10 @@
 	.text
 	.data
 	.extern gameOver
+	.extern moveBird
+	.extern gameMode
+	.extern gameOverText
+	.extern buzzer_set_period
 
 jmp_table:
 	.word case_0 
@@ -14,15 +18,13 @@ play:
 	add r12, r12
 	mov jmp_table(r12), r0
 case_0:
-	call moveBird
-	call gameMode
+	call #moveBird
+	call #gameMode
 	jmp end
 case_1:
-	call gameOverText
+	call #gameOverText
 	mov #0, r12
-	call buzzer_set_period
+	call #buzzer_set_period
 	jmp end
 end:
 	pop r0
-	pop r0
-	
