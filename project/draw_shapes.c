@@ -3,28 +3,23 @@
 #include "lcddraw.h"
 #include "draw_shapes.h"
 #include "drawing.h"
+#include "stateMachine.h"
 
 circle cir1;
 circle cir2;
 u_int background_color = COLOR_BLUE;
-int gameOver = 0;
-int pause;
-int cirPosX;
-int cirPosY;
-int cir2PosX;
-int cir2PosY;
 
 void
 init_shapes(void)
 {
-
-  // vars for the circle
+  // settings for circles
+  // circle 1
   cir1.cir_y = 60;
   cir1.cir_x = screenWidth / 2;
   cir1.old_cir_y = 60;
   cir1.old_cir_x = screenWidth / 2;
-  cir1.r = 12;
-
+  cir1.r = 10;
+  // circle 2
   cir2.cir_y = 80;
   cir2.cir_x = 100;
   cir2.old_cir_y = 80;
@@ -32,7 +27,7 @@ init_shapes(void)
   cir2.r = 6;
 }
 
-
+// needed for circles
 void
 drawHorizontalLine(u_int x_start, u_int x_end, u_int y, u_int colorBGR)
 {
@@ -47,6 +42,7 @@ drawHorizontalLine(u_int x_start, u_int x_end, u_int y, u_int colorBGR)
   
 }
 
+// needed for cirlces
 void
 drawLines(u_int x_coord, u_int y_coord, u_int x_point, u_int y_point, u_int color)
 {
@@ -65,6 +61,7 @@ draw_circle(int x, int y, int r, u_int color)
 {
   int x_coord = x;
   int y_coord = y;
+  
   // first point will be the very top;
   int x_point = 0;
   int y_point = r;
@@ -88,6 +85,7 @@ draw_circle(int x, int y, int r, u_int color)
   }
 }
 
+//circle 1
 void
 moving_circle(void)
 {
@@ -121,11 +119,12 @@ moving_circle(void)
   }
 }
 
+// circle 2
 void
 moving_circle2(void)
 {
-  static int x_vel = 3;
-  static int y_vel = 1;
+  static int x_vel = 2;
+  static int y_vel = 6;
   
   u_int color = COLOR_RED;
 
@@ -179,6 +178,7 @@ moving_bird(rectangle *to_draw, int moveUp, int moveDown)
 
   // draw rectangle at current position
   flappyBird(0, top_row, to_draw->width, to_draw->height, background_color);
+  
   // save current position
   to_draw->old_rect_row = to_draw->rect_row;
   to_draw->old_rect_col = to_draw->rect_col;
@@ -197,5 +197,4 @@ moving_bird(rectangle *to_draw, int moveUp, int moveDown)
        (to_draw->rect_row+35 + to_draw->height / 2) >= screenHeight) {
     gameOver = 1;
   }
-
 }

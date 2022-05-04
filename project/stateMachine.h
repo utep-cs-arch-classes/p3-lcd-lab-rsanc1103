@@ -3,6 +3,9 @@
 
 #include "lcdutils.h"
 
+extern int gameOver;
+extern int pause;
+
 void moveBird(void);
 void gameMode(void);
 

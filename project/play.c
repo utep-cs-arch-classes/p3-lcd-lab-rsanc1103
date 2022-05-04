@@ -9,13 +9,13 @@
 void play(){  
    switch(gameOver){
    case 0:
+     draw_moving_shapes();
      moveBird();
      gameMode();
      break; 
    case 1:
      gameOverText();
      buzzer_set_period(0); 
-     break;
    }
    return;
 }

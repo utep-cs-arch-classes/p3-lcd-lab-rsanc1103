@@ -7,6 +7,7 @@
 #include "buzzer.h"
 #include "play.h"
 
+// game over title
 void
 gameOverText(void){
   drawString5x7(40, 80, "You Lost!", COLOR_WHITE, background_color);
@@ -24,6 +25,7 @@ __interrupt_vec(WDT_VECTOR) WDT(){
 
   if (second_count >= second_limit) {
      second_count = 0;
+     // play with interrupts
      play();
    }
 } 
