@@ -22,6 +22,7 @@ typedef struct cir_st {
 
 extern u_int background_color;
 extern int gameOver;
+extern int pause;
 
 /* initializes shape positions */
 void init_shapes(void);

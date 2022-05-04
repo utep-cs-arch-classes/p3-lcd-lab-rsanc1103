@@ -8,6 +8,7 @@ circle cir1;
 circle cir2;
 u_int background_color = COLOR_BLUE;
 int gameOver = 0;
+int pause;
 int cirPosX;
 int cirPosY;
 int cir2PosX;
@@ -22,7 +23,7 @@ init_shapes(void)
   cir1.cir_x = screenWidth / 2;
   cir1.old_cir_y = 60;
   cir1.old_cir_x = screenWidth / 2;
-  cir1.r = 6;
+  cir1.r = 12;
 
   cir2.cir_y = 80;
   cir2.cir_x = 100;
@@ -90,7 +91,7 @@ draw_circle(int x, int y, int r, u_int color)
 void
 moving_circle(void)
 {
-  static int x_vel = 2;
+  static int x_vel = 5;
   static int y_vel = 3;
   
   u_int color = COLOR_GREEN;
@@ -103,9 +104,6 @@ moving_circle(void)
   // save current position
   cir1.old_cir_x = cir1.cir_x;
   cir1.old_cir_y = cir1.cir_y;
-
-  cirPosX = cir1.cir_x;
-  cirPosY = cir1.cir_y;
 
   // update position
   cir1.cir_x += x_vel;
@@ -139,9 +137,6 @@ moving_circle2(void)
   // save current position
   cir2.old_cir_x = cir2.cir_x;
   cir2.old_cir_y = cir2.cir_y;
-
-  cir2PosX = cir2.cir_x;
-  cir2PosY = cir2.cir_y;
   
   // update position
   cir2.cir_x += x_vel;
@@ -167,9 +162,11 @@ draw_moving_shapes(void)
   draw_circle(cir1.old_cir_x, cir1.old_cir_y, cir1.r, background_color);
   draw_circle(cir2.old_cir_x, cir2.old_cir_y, cir2.r, background_color);
 
-  // draw and update the circle
-  moving_circle();
-  moving_circle2();
+  if(!pause){
+    // draw and update the circle
+    moving_circle();
+    moving_circle2();
+  }
 }
 
 void
@@ -196,15 +193,9 @@ moving_bird(rectangle *to_draw, int moveUp, int moveDown)
     y_vel = y_vel * -1;
   }
   // check boundaries, see if rectangle has hit the edges
-   if ( (to_draw->rect_row+30 - to_draw->height / 2) <= 0 ||
-	(to_draw->rect_row+30 + to_draw->height / 2) >= screenHeight) {
-     gameOver = 1;
-   }
-  // if (  ((to_draw->rect_row+30) == cirPosX &&
-  //	(to_draw->rect_row) == cirPosY) ||
-  //	((to_draw->rect_row+30) == cir2PosX &&
-  //	 (to_draw->rect_row) == cir2PosY)
-  //	) {
-  //   gameOver = 1;
-  // }
+  if ( (to_draw->rect_row+15 - to_draw->height / 2) <= 0 ||
+       (to_draw->rect_row+35 + to_draw->height / 2) >= screenHeight) {
+    gameOver = 1;
+  }
+
 }

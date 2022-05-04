@@ -21,7 +21,7 @@ update_text(int pressed){
 void
 moveBird(void){
   draw_moving_shapes();
-  
+  if(!pause){
   if(switch1_down){ 
     moving_bird(&rect1, 0, 1);
     buzzer_set_period(12000);
@@ -36,20 +36,31 @@ moveBird(void){
     moving_bird(&rect1, 1, 0);
     buzzer_set_period(5000);
   }
+  }
 }
 void
 gameMode(void){
   if(switch3_down){
+    buzzer_set_period(0);
+    
+    if(!pause){
+      pause = 1;
+      drawString5x7(50, 70, "PAUSE", COLOR_WHITE, background_color);
+    }else{
+      pause = 0;
+      drawString5x7(50, 70, "     ", COLOR_WHITE, background_color);
+    }
+  }
+  if(switch4_down){
     if(background_color == COLOR_BLACK){
       background_color = COLOR_BLUE;
       clearScreen(background_color);
+       update_text(1);
     }
-    update_text(1);
-    buzzer_set_period(0);
-  }
-  if(switch4_down){
-    background_color = COLOR_BLACK;
-    clearScreen(background_color);
-    update_text(0);
+    else{
+      background_color = COLOR_BLACK;
+      clearScreen(background_color);
+      update_text(0);
+    }
   }
 }
