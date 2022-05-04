@@ -24,9 +24,6 @@ update_text(int pressed){
 
 void
 moveBird(void){
-  // draw moving shapes
-  // draw_moving_shapes();
-  
   if(!pause){
     // button 1 pressed
     if(switch1_down){

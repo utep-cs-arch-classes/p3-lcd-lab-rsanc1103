@@ -27,5 +27,13 @@ clean:
 	rm -f *.o *.elf *.c~ *.h~ *.s~
 
 play.o: play.c
-
 play_s.o: play_s.s
+
+buzzer.o:			buzzer.c buzzer.h
+draw_shapes.o:			draw_shapes.c draw_shapes.h
+p2_interrupt_handler.o:		p2_interrupt_handler.c
+stateMachine.o:			stateMachine.c stateMachine.h
+drawing.o:			drawing.c drawing.h
+switches.o:			switches.c switches.h
+wdtInterruptHandler.o:		wdtInterruptHandler.c wdtInterruptHandler.h
+
